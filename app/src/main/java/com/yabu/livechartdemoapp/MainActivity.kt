@@ -18,84 +18,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        livechart = findViewById(R.id.main_live_chart)
-        livechartSimple = findViewById(R.id.main_simple_live_chart)
         livechartNegative = findViewById(R.id.main_negative_live_chart)
 
-        val dataset = SampleData.createSampleData()
 
-        val negativeDataset = SampleData.createNegativeSampleData()
+        val negativeDataset = SampleData.createSampleData()
 
-        val chartStyle = LiveChartStyle().apply {
-            mainColor = Color.GRAY
-            pathStrokeWidth = 8f
-            secondPathStrokeWidth = 4f
-            textHeight = 40f
-            textColor = Color.GRAY
-            overlayLineColor = Color.BLUE
-            overlayCircleDiameter = 32f
-            overlayCircleColor = Color.GREEN
-        }
-
-        livechartSimple.setDataset(dataset)
-            .setLiveChartStyle(chartStyle)
-            .drawSmoothPath()
-            .setOnTouchCallbackListener(object : LiveChart.OnTouchCallback {
-                @SuppressLint("SetTextI18n")
-                override fun onTouchCallback(point: DataPoint) {
-                    livechartSimple.parent.requestDisallowInterceptTouchEvent(true)
-                    main_simple_data_point.text = "(${"%.2f".format(point.x)}, ${"%.2f".format(point.y)})"
-                }
-
-                override fun onTouchFinished() {
-                    livechartSimple.parent.requestDisallowInterceptTouchEvent(false)
-                    main_simple_data_point.text = "Touch Finished"
-                }
-            })
-            .drawDataset()
-
-        val style = LiveChartStyle().apply {
-            mainColor = Color.parseColor("#01C194")
-            textColor = Color.GRAY
-            positiveColor = Color.parseColor("#01C194")
-            positiveFillColor = Color.parseColor("#01C194")
-            negativeColor = Color.parseColor("#d70a53")
-            negativeFillColor = Color.parseColor("#d70a53")
-            pathStrokeWidth = 6f
-            secondPathStrokeWidth = 4f
-        }
-
-        livechart.setDataset(dataset)
-            .setLiveChartStyle(style)
-            .drawYBounds()
-            .drawFill(withGradient = true)
-            .drawBaseline()
-            .stickyOverLay()
-            .drawLastPointLabel()
-            .drawBaselineConditionalColor()
-            .setOnTouchCallbackListener(object : LiveChart.OnTouchCallback {
-                @SuppressLint("SetTextI18n")
-                override fun onTouchCallback(point: DataPoint) {
-                    livechart.parent
-                        .requestDisallowInterceptTouchEvent(true)
-                }
-
-                override fun onTouchFinished() {
-                    livechart.parent
-                        .requestDisallowInterceptTouchEvent(false)
-                }
-            })
-            .drawDataset()
 
         livechartNegative.setDataset(negativeDataset)
-            .setLiveChartStyle(style)
+//            .setLiveChartStyle(style)
             .drawYBounds()
             .drawSmoothPath()
             .drawBaseline()
             .drawFill()
-            .drawHorizontalGuidelines(steps = 4)
-            .drawVerticalGuidelines(steps = 4)            .stickyOverLay()
-
+//            .drawHorizontalGuidelines(steps = 4)
+//            .drawVerticalGuidelines(steps = 4)
+            .stickyOverLay()
             .drawBaselineConditionalColor()
             .drawLastPointLabel()
             .setOnTouchCallbackListener(object : LiveChart.OnTouchCallback {
@@ -103,6 +40,8 @@ class MainActivity : AppCompatActivity() {
                 override fun onTouchCallback(point: DataPoint) {
                     livechartNegative.parent
                         .requestDisallowInterceptTouchEvent(true)
+                    main_simple_data_point.text = "(${"%.2f".format(point.x)}, ${"%.2f".format(point.y)})"
+
                 }
 
                 override fun onTouchFinished() {

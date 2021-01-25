@@ -355,9 +355,8 @@ class LiveChartTouchOverlay(context: Context, attrs: AttributeSet?)
                 if (coordinates != null) {
                     overlay.alpha = 1f
 
-                    overlay.x = coordinates[0] - (chartStyle.overlayCircleDiameter/2)
-                    overlayPoint.y = coordinates[1] - (chartStyle.overlayCircleDiameter/2)
-
+                    overlay.y = coordinates.first() - (chartStyle.overlayCircleDiameter/2)
+                    overlayPoint.y = coordinates[1]
                     touchListener?.onTouchCallback(DataPoint(
                         x = coordinates[0].xPixelsToPoint(),
                         y = coordinates[1].yPixelsToPoint()
@@ -384,8 +383,9 @@ class LiveChartTouchOverlay(context: Context, attrs: AttributeSet?)
                 if (coordinates != null) {
                     overlay.alpha = 1f
 
-                    overlay.x = coordinates[0] - (chartStyle.overlayCircleDiameter/2)
-                    overlayPoint.y = coordinates[1] - (chartStyle.overlayCircleDiameter/2)
+                    overlay.y = coordinates[1]
+//                    overlayPoint.y = coordinates[1] - (chartStyle.overlayCircleDiameter/2)
+                    overlayPoint.x = coordinates[0] - (chartStyle.overlayCircleDiameter/2)
 
                     touchListener?.onTouchCallback(DataPoint(
                         x = coordinates[0].xPixelsToPoint(),
