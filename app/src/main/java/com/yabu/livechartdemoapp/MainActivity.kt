@@ -19,6 +19,11 @@ class MainActivity : AppCompatActivity() {
         val negativeDataset = SampleData.createSampleData()
         livechartNegative.setDataset(negativeDataset)
             .drawYBounds()
+                .drawBaseline()
+                .drawLastPointLabel()
+                .drawSmoothPath()
+                .drawBaselineConditionalColor()
+                .drawBaselineConditionalColor().drawHorizontalGuidelines(4)
             .drawBaseline()
             .drawFill()
             .stickyOverLay()
@@ -27,8 +32,6 @@ class MainActivity : AppCompatActivity() {
                 override fun onTouchCallback(point: DataPoint) {
                     livechartNegative.parent
                         .requestDisallowInterceptTouchEvent(true)
-                    main_simple_data_point.text = "(${"%.2f".format(point.x)}, ${"%.2f".format(point.y)})"
-
                 }
 
                 override fun onTouchFinished() {
