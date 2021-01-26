@@ -113,6 +113,12 @@ class LiveChartStyle {
     var overlayLineColor = LiveChartAttributes.OVERLAY_LINE_COLOR
 
     /**
+     * Overlay Text color.
+     */
+    var overlayTextColor = LiveChartAttributes.OVERLAY_Text_COLOR
+
+
+    /**
      * Overlay livechart_circle color.
      */
     var overlayCircleColor = LiveChartAttributes.OVERLAY_CIRCLE_COLOR

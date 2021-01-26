@@ -575,14 +575,14 @@ open class LiveChartView(context: Context, attrs: AttributeSet?) : View(context,
                         // move path to first data point,
                         if (index == 0) {
                             moveTo(
-                                chartBounds.start + point.x.xPointToPixels(),
+                                    chartBounds.start + point.x.xPointToPixels(),
                                 point.y.yPointToPixels()
                             )
                             return@forEachIndexed
                         }
 
                         lineTo(
-                            chartBounds.start + point.x.xPointToPixels(),
+                                chartBounds.start + point.x.xPointToPixels(),
                             point.y.yPointToPixels()
                         )
                     }
@@ -593,14 +593,14 @@ open class LiveChartView(context: Context, attrs: AttributeSet?) : View(context,
                         // move path to first data point,
                         if (index == 0) {
                             moveTo(
-                                chartBounds.start + point.x.xPointToPixels(),
+                                    chartBounds.start + point.x.xPointToPixels(),
                                 point.y.yPointToPixels()
                             )
                             return@forEachIndexed
                         }
 
                         lineTo(
-                            chartBounds.start + point.x.xPointToPixels(),
+                                chartBounds.start + point.x.xPointToPixels(),
                             point.y.yPointToPixels()
                         )
                     }
@@ -611,17 +611,17 @@ open class LiveChartView(context: Context, attrs: AttributeSet?) : View(context,
                 dataset.points.forEachIndexed { index, point ->
                     // move path to first data point,
                     if (index == 0) {
-                        moveTo(chartBounds.start + point.x.xPointToPixels(),
+                            moveTo(chartBounds.start + point.x.xPointToPixels(),
                             point.y.yPointToPixels())
                         return@forEachIndexed
                     }
 
-                    lineTo(chartBounds.start + point.x.xPointToPixels(),
+                        lineTo(chartBounds.start + point.x.xPointToPixels(),
                         point.y.yPointToPixels())
                 }
-                lineTo(chartBounds.start + dataset.points.last().x.xPointToPixels(),
+                    lineTo(chartBounds.start + dataset.points.last().x.xPointToPixels(),
                     chartBounds.bottom)
-                lineTo(chartBounds.start + dataset.points.first().x.xPointToPixels(),
+                    lineTo(chartBounds.start + dataset.points.first().x.xPointToPixels(),
                     chartBounds.bottom)
             }
 
@@ -637,9 +637,9 @@ open class LiveChartView(context: Context, attrs: AttributeSet?) : View(context,
             }
 
             if (drawGradientFill) {
-                datasetFillPaint.shader = LinearGradient(chartBounds.start,
+                    datasetFillPaint.shader = LinearGradient(chartBounds.start,
                     dataset.upperBound().yPointToPixels(),
-                    chartBounds.start,
+                        chartBounds.start,
                     chartBounds.bottom,
                     fillColor,
                     Color.parseColor(LiveChartAttributes.TRANSPARENT_COLOR),
@@ -685,7 +685,7 @@ open class LiveChartView(context: Context, attrs: AttributeSet?) : View(context,
         if (drawHorizontalGuidelines) {
             for (i in 0..horizontalGuidelineStep) {
                 // draw vertical guidelines
-                canvas.drawLine(chartBounds.start,
+                    canvas.drawLine(chartBounds.start,
                     (chartBounds.bottom/horizontalGuidelineStep)*i,
                     if (drawYBounds)
                         (chartBounds.end - chartStyle.chartEndPadding)
@@ -699,7 +699,7 @@ open class LiveChartView(context: Context, attrs: AttributeSet?) : View(context,
 
         if (drawBaseline) {
             // draw baseline
-            canvas.drawLine(chartBounds.start,
+                canvas.drawLine(chartBounds.start,
                 baseline.yPointToPixels(),
                 // account for end padding only if Y Bounds are visible
                 chartBounds.end  - if (drawYBounds) chartStyle.chartEndPadding else 0f,
@@ -765,7 +765,7 @@ open class LiveChartView(context: Context, attrs: AttributeSet?) : View(context,
             // Last Point Label
             if (drawLastPointLabel) {
                 // draw end tag line
-                canvas.drawLine(chartBounds.start,
+                    canvas.drawLine(chartBounds.start,
                     dataset.points.last().y.yPointToPixels(),
                     chartBounds.end - chartStyle.chartEndPadding,
                     dataset.points.last().y.yPointToPixels(),

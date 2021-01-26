@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.TextView
 import com.yabu.livechart.R
 import com.yabu.livechart.model.Bounds
 import com.yabu.livechart.model.DataPoint
@@ -45,9 +46,13 @@ class LiveChartTouchOverlay(context: Context, attrs: AttributeSet?)
         this,
         false)
 
-    private var overlayPoint: View
+    private var overlayPoint: TextView
+
+    //touch_overlay_cu
 
     private var overlayLine: View
+
+    private var overlayPointCu: TextView
 
     /**
      * Baseline to determine paint color from data end point.
@@ -104,6 +109,7 @@ class LiveChartTouchOverlay(context: Context, attrs: AttributeSet?)
 
         overlayLine = overlay.findViewById(R.id.touch_overlay_line)
         overlayPoint = overlay.findViewById(R.id.touch_overlay_point)
+        overlayPointCu = overlay.findViewById(R.id.touch_overlay_cu)
         overlay.alpha = 0f
 
         // Gather the xml attributes to style the chart,
@@ -183,12 +189,17 @@ class LiveChartTouchOverlay(context: Context, attrs: AttributeSet?)
     fun setLiveChartStyle(style: LiveChartStyle): LiveChartTouchOverlay {
         chartStyle = style
 
-        val lp = overlayPoint.layoutParams
-        lp.width = chartStyle.overlayCircleDiameter.toInt()
-        lp.height = chartStyle.overlayCircleDiameter.toInt()
-        overlayPoint.layoutParams = lp
+//        val lp = overlayPoint.layoutParams
+//        lp.width = chartStyle.overlayCircleDiameter.toInt()
+//        lp.height = chartStyle.overlayCircleDiameter.toInt()
+//        overlayPoint.layoutParams = lp
 
+        overlayPoint.setTextColor(chartStyle.overlayTextColor)
         overlayLine.setBackgroundColor(chartStyle.overlayLineColor)
+
+        overlayPointCu.setTextColor(chartStyle.overlayTextColor)
+        overlayPointCu.backgroundTintList = ColorStateList.valueOf(chartStyle.overlayCircleColor)
+
         overlayPoint.backgroundTintList = ColorStateList.valueOf(chartStyle.overlayCircleColor)
 
         return this
@@ -335,19 +346,18 @@ class LiveChartTouchOverlay(context: Context, attrs: AttributeSet?)
         return this/xBoundsToPixels()
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         return when (event.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
                 // Extract coordinate from stored array array
-                val roundedPos = (event.x).roundToInt()
+                val roundedPos = (event.y).roundToInt()
 
                 if (roundedPos == oldRoundedPos) {
                     return true
                 }
 
                 val coordinates = pathCoordinates.firstOrNull {
-                    (it[0]).roundToInt() == roundedPos
+                    (it[1]).roundToInt() == roundedPos
                 }
 
                 oldRoundedPos = roundedPos
@@ -355,8 +365,9 @@ class LiveChartTouchOverlay(context: Context, attrs: AttributeSet?)
                 if (coordinates != null) {
                     overlay.alpha = 1f
 
-                    overlay.y = coordinates.first() - (chartStyle.overlayCircleDiameter/2)
-                    overlayPoint.y = coordinates[1]
+                    overlay.y = coordinates[1]
+//                    overlayPoint.x =  (chartStyle.overlayCircleDiameter/2)
+                    overlayPoint.text  = "%.1f".format(coordinates[1].yPixelsToPoint())
                     touchListener?.onTouchCallback(DataPoint(
                         x = coordinates[0].xPixelsToPoint(),
                         y = coordinates[1].yPixelsToPoint()
@@ -368,25 +379,22 @@ class LiveChartTouchOverlay(context: Context, attrs: AttributeSet?)
 
             MotionEvent.ACTION_MOVE -> {
                 // Extract coordinate from stored array array
-                val roundedPos = (event.x).roundToInt()
+                val roundedPos = (event.y).roundToInt()
 
                 if (roundedPos == oldRoundedPos) {
                     return true
                 }
 
                 val coordinates = pathCoordinates.firstOrNull {
-                    (it[0]).roundToInt() == roundedPos
+                    (it[1]).roundToInt() == roundedPos
                 }
 
                 oldRoundedPos = roundedPos
 
                 if (coordinates != null) {
                     overlay.alpha = 1f
-
                     overlay.y = coordinates[1]
-//                    overlayPoint.y = coordinates[1] - (chartStyle.overlayCircleDiameter/2)
-                    overlayPoint.x = coordinates[0] - (chartStyle.overlayCircleDiameter/2)
-
+                    overlayPoint.text  = "%.1f".format(coordinates[1].yPixelsToPoint())
                     touchListener?.onTouchCallback(DataPoint(
                         x = coordinates[0].xPixelsToPoint(),
                         y = coordinates[1].yPixelsToPoint()

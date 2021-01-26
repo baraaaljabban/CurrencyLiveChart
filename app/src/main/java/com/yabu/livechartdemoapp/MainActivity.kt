@@ -10,31 +10,18 @@ import com.yabu.livechart.view.LiveChartStyle
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var livechart: LiveChart
-    private lateinit var livechartSimple: LiveChart
     private lateinit var livechartNegative: LiveChart
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         livechartNegative = findViewById(R.id.main_negative_live_chart)
-
-
         val negativeDataset = SampleData.createSampleData()
-
-
         livechartNegative.setDataset(negativeDataset)
-//            .setLiveChartStyle(style)
             .drawYBounds()
-            .drawSmoothPath()
             .drawBaseline()
             .drawFill()
-//            .drawHorizontalGuidelines(steps = 4)
-//            .drawVerticalGuidelines(steps = 4)
             .stickyOverLay()
-            .drawBaselineConditionalColor()
-            .drawLastPointLabel()
             .setOnTouchCallbackListener(object : LiveChart.OnTouchCallback {
                 @SuppressLint("SetTextI18n")
                 override fun onTouchCallback(point: DataPoint) {

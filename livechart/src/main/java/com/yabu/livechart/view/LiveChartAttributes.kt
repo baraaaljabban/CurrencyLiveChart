@@ -47,6 +47,9 @@ internal object LiveChartAttributes {
 
     const val OVERLAY_LINE_COLOR = Color.GRAY
 
+    const val OVERLAY_Text_COLOR = Color.WHITE
+
+
     const val OVERLAY_CIRCLE_COLOR = Color.BLACK
 
     const val OVERLAY_CIRCLE_DIAMETER = 24f
