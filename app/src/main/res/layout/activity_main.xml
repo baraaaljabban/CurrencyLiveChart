@@ -23,24 +23,13 @@
             android:padding="16dp"/>
 
 
-        <TextView
-            android:id="@+id/main_simple_data_point"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/main_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/main_title"
-            app:layout_constraintTop_toBottomOf="@+id/main_title"
-            tools:text="40.0" />
-
-
         <com.yabu.livechart.view.LiveChart
             android:id="@+id/main_negative_live_chart"
             android:layout_width="match_parent"
             android:layout_height="120dp"
             app:labelTextColor="@color/colorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_simple_data_point"
+            app:layout_constraintTop_toBottomOf="@+id/main_title"
             app:overlayCircleColor="@color/colorPrimaryDark"
             app:overlayCircleDiameter="8dp"
             app:overlayLineColor="@color/colorPrimary"
